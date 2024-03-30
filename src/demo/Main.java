@@ -17,7 +17,6 @@ public class Main {
 
 		System.out.println("★★ ==== 戦いの開始だ！！ ==== ★★");
 		
-		
 		// Brave（勇者）, Fighter（戦士）, Wizard（魔法使い）クラスの各インスタンスを生成
 		Brave brave = new Brave("沖田総司","剣" );
 		
@@ -25,26 +24,18 @@ public class Main {
 		
 		Wizard wizard = new Wizard("安倍晴明", "魔法");
 		
-		
 		// 人間グループのリストを空で生成
 		List<Human> humans = new ArrayList<>();
-		
 		
 		// 勇者、戦士、魔法使いを人間グループのリストに追加
 		humans.add(brave);
 		humans.add(figter);
 		humans.add(wizard);
 		
-		
-		
 		// Slime（スライム）, Oak（オーク）, Dragon（ドラゴン）クラスの各インスタンスを生成
 		Slime slime = new Slime("キングスライム","体当たり");
 		Oak oak = new Oak("オークキング","槍");
 		Dragon dragon = new Dragon("紅龍","炎");
-		
-		
-		
-		
 		
 		// モンスターグループのリストを空で生成
 		List<Monster> monsters = new ArrayList<>();
@@ -54,7 +45,6 @@ public class Main {
 		monsters.add(slime);
 		monsters.add(oak);
 		monsters.add(dragon);
-		
 		
 		// 現在の各グループの状態を一覧表示
 		showGroupInfos(humans, monsters);
@@ -69,18 +59,14 @@ public class Main {
 			
 			System.out.println("\n[人間のターン！]\n");
 			
-			
 			// 人間グループから1人選択
 			Human humanAttaker = choiceHuman(humans);
-			
 			
 			// モンスターグループから1人選択
 			Monster monsterTarget = choiceMonster(monsters);
 			
-			
 			// 選ばれた人間が、選ばれたモンスターを攻撃
 			humanAttaker.attack(monsterTarget);
-			
 			
 			// モンスターのHPが0以下になれば、モンスターは倒れ、そのモンスターをモンスターグループから削除
 			if(monsterTarget.getHp() <= 0) {
@@ -88,36 +74,28 @@ public class Main {
 			System.out.println("★ 「" + monsterTarget.getName() + "」は倒れた。");
 			}
 			
-			
 			// モンスターグループに誰もいなくなれば、人間グループの勝利
 			if(monsters.isEmpty()) {
 				System.out.println("#### 人間達は勝利した！！ ####");
 				break;
 			}
 			
-			
 			System.out.println("\n[モンスターのターン！]\n");
 			
 			// 人間グループから1人選択
-			Human humanTarget = choiceHuman(humans);
-			
+			humanAttaker = choiceHuman(humans);
 			
 			// モンスターグループから1人選択
-			Monster monsterAttaker = choiceMonster(monsters);
-			
+			monsterTarget = choiceMonster(monsters);
 			
 			// 選ばれたモンスターが、選ばれた人間を攻撃
-			monsterAttaker.attack(humanTarget);
-			
+			monsterTarget.attack(humanAttaker);
 			
 			// 人間のHPが0以下になれば、人間は倒れ、その人間をモンスターグループから削除
-			if(humanTarget.getHp() <= 0) {
-				humans.remove(humanTarget);
-				System.out.println("★ 「" + humanTarget.getName() + "」は倒れた。");
+			if(humanAttaker.getHp() <= 0) {
+				humans.remove(humanAttaker);
+				System.out.println("★ 「" + humanAttaker.getName() + "」は倒れた。");
 			}
-			
-			
-				
 			
 			// 人間グループに誰もいなくなれば、人間グループの敗北
 			if(humans.isEmpty()) {
